@@ -4,7 +4,7 @@ from settings import Settings
 from ship import Ship
 from game_stats import GameStats
 import game_functions as gf
-
+from button import Button
 
 def run_game():
     #initialize pygame settings and screen object
@@ -30,6 +30,9 @@ def run_game():
 
     #Create the fleet of aliens
     gf.create_fleet(ai_settings, screen, ship, aliens)
+
+    #make the play button for the game
+    play_button = Button(ai_settings, screen, "Play")
     
 
     #start the games main loop
@@ -51,7 +54,7 @@ def run_game():
 
             #redraw the screen during each pass through the loop and make most recently
             #draw screen visible
-            gf.update_screen(ai_settings, screen, ship, aliens, bullets)
+            gf.update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button)
         
 #run the game
 run_game()

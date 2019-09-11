@@ -5,6 +5,7 @@ from ship import Ship
 from game_stats import GameStats
 import game_functions as gf
 from button import Button
+from scoreboard import ScoreBoard
 
 def run_game():
     #initialize pygame settings and screen object
@@ -18,6 +19,7 @@ def run_game():
 
     #Create an instance to store game statistics
     stats = GameStats(ai_settings)
+    sb = ScoreBoard(ai_settings, screen, stats)
 
     #Make a ship
     ship = Ship(ai_settings, screen)
@@ -40,21 +42,21 @@ def run_game():
     while True:
 
         #watch for keyboard and mouse events
-        gf.check_events(ai_settings, screen, ship, bullets)
+        gf.check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets)
+        #redraw the screen during each pass through the loop and make most recently
+        #draw screen visible
+        gf.update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_button)
 
         if stats.game_active:
             #control the movement of the ship
             ship.update()
 
             #get rid of old bullets that have disappeared
-            gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
+            gf.update_bullets(ai_settings, screen,stats, sb, ship, aliens, bullets)
 
             #update the alien's position
             gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
 
-            #redraw the screen during each pass through the loop and make most recently
-            #draw screen visible
-            gf.update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button)
         
 #run the game
 run_game()

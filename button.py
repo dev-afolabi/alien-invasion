@@ -9,12 +9,13 @@ class Button():
 
         #Set the dimensions and properties of the screen
         self.width, self.height = 200, 50
-        self.button_color = (0, 255, 0)
+        self.button_color = (0, 0, 255)
         self.text_color = (255, 255, 255)
         self.font = pygame.font.SysFont(None, 48)
 
         #Build the buttons rect object and center it
         self.rect = pygame.Rect(0, 0, self.width, self.height)
+        self.rect.center = self.screen_rect.center
 
         #The button message needs to be prepared only once
         self.prep_msg(msg)
